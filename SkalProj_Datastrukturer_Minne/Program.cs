@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -62,6 +64,9 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineList()
         {
+            bool isExamineListAlive = true;
+            Console.WriteLine("Enter a string with + or - like +Jossy or -Jossy:"
+                  + "\n*. Return to main menu");
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch statement with cases '+' and '-'
@@ -71,15 +76,54 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            List<string> theList = new List<string>();
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            while (isExamineListAlive)
+            {
+                string input = Console.ReadLine();
+                char nav = input[0];
+                string value = input.Substring(1);
 
-            //switch(nav){...}
+            switch (nav) 
+                {
+                case '+':
+                    theList.Add(value);
+                    Console.WriteLine($"Added '{value}' to the list.");
+                        Console.WriteLine($"Count: {theList.Count}, Capacity: {theList.Capacity}");
+                        break;
+                case '-':
+                if (theList.Remove(value))
+                {
+                    Console.WriteLine($"Removed '{value}' from the list.");
+                        Console.WriteLine($"Count: {theList.Count}, Capacity: {theList.Capacity}");
+
+                }
+                    else
+                {
+                    Console.WriteLine($"'{value}' not found in the list. Enter a string with + like +Jossy to add it");
+                }
+                        break;
+                case '*':
+                        isExamineListAlive = false;
+                        break;
+                default:
+                Console.WriteLine("Use only '+' or '-'.");
+                        break;
+                }
+            }
+
         }
-
+        //2. When does the list capacity increase? (So ​​the size of the underlying array)
+        //When the count in the list is more than capacity , the capacity increases
+        //3. By how much does the capacity increase?
+        //When the count reached 4, capacity was 4. When count is increased again capacity is 8 ie, doubled. Similarly when count exceeded 8 capacity became 16. Again double.
+        //4. Why doesn't the capacity of the list increase at the same rate as elements are added?
+        //If capacity increases everytime it will result in reallocations all the time and therefore bad performance and memory usage.
+        //5. Does capacity decrease when elements are removed from the list?
+        //No. Capacity remains the same ven when elements are removed.
+        //6. When is it advantageous to use a self-defined array instead of a list?
+        // If we are not strict on memory usage we can use list instead of arrays
+        // If we don't want dynamic resizing and know the size requirement for data structure then array can be used
         /// <summary>
         /// Examines the datastructure Queue
         /// </summary>
