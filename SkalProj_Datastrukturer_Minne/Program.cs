@@ -134,12 +134,64 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            bool isExamineQueueAlive = true;
+            // Create a new Queue 
+            Queue<string> icaQueue = new Queue<string>();
+
+            Console.WriteLine("ICA opens, and the checkout queue is empty.");
+
+            while (isExamineQueueAlive)
+            {
+                Console.WriteLine("1. Enqueue");
+                Console.WriteLine("2. Dequeue");
+                Console.WriteLine("*. Return to main menu");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Enter a name to join the queue: ");
+                        string name = Console.ReadLine();
+                        icaQueue.Enqueue(name);
+                        Console.WriteLine($"{name} has joined the queue.");
+                        break;
+                    case "2":
+                        if (icaQueue.Count > 0)
+                        {
+                            string firstPerson = icaQueue.Dequeue();
+                            Console.WriteLine($"{firstPerson} has left the queue.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("The queue is empty.");
+                        }
+                        break;
+                    case "*":
+                        isExamineQueueAlive = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter a valid option.");
+                        break;
+                }
+
+                // Print the current queue
+                if (isExamineQueueAlive == true)
+                {
+                    Console.WriteLine("\nCurrent Queue:");
+                    foreach (string person in icaQueue)
+                    {
+                        Console.WriteLine(person);
+                    }
+                }
+            }
         }
 
-        /// <summary>
-        /// Examines the datastructure Stack
-        /// </summary>
-        static void ExamineStack()
+    /// <summary>
+    /// Examines the datastructure Stack
+    /// </summary>
+    static void ExamineStack()
         {
             /*
              * Loop this method until the user inputs something to exit to main menue.
