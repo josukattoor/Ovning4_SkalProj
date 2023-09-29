@@ -84,30 +84,30 @@ namespace SkalProj_Datastrukturer_Minne
                 char nav = input[0];
                 string value = input.Substring(1);
 
-            switch (nav) 
+                switch (nav)
                 {
-                case '+':
-                    theList.Add(value);
-                    Console.WriteLine($"Added '{value}' to the list.");
+                    case '+':
+                        theList.Add(value);
+                        Console.WriteLine($"Added '{value}' to the list.");
                         Console.WriteLine($"Count: {theList.Count}, Capacity: {theList.Capacity}");
                         break;
-                case '-':
-                if (theList.Remove(value))
-                {
-                    Console.WriteLine($"Removed '{value}' from the list.");
-                        Console.WriteLine($"Count: {theList.Count}, Capacity: {theList.Capacity}");
+                    case '-':
+                        if (theList.Remove(value))
+                        {
+                            Console.WriteLine($"Removed '{value}' from the list.");
+                            Console.WriteLine($"Count: {theList.Count}, Capacity: {theList.Capacity}");
 
-                }
-                    else
-                {
-                    Console.WriteLine($"'{value}' not found in the list. Enter a string with + like +Jossy to add it");
-                }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"'{value}' not found in the list. Enter a string with + like +Jossy to add it");
+                        }
                         break;
-                case '*':
+                    case '*':
                         isExamineListAlive = false;
                         break;
-                default:
-                Console.WriteLine("Use only '+' or '-'.");
+                    default:
+                        Console.WriteLine("Use only '+' or '-'.");
                         break;
                 }
             }
@@ -188,10 +188,10 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-    /// <summary>
-    /// Examines the datastructure Stack
-    /// </summary>
-    static void ExamineStack()
+        /// <summary>
+        /// Examines the datastructure Stack
+        /// </summary>
+        static void ExamineStack()
         {
             /*
              * Loop this method until the user inputs something to exit to main menue.
@@ -203,8 +203,8 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 Console.WriteLine("\n* Return to main menu");
                 Console.Write("Enter a string with + to push to stack and - to pop from stack: ");
-            string input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input) )
+                string input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))
                 {
                     Console.WriteLine("* Return to main menu");
                     Console.Write("Enter a string with + to push to stack and - to pop from stack: ");
@@ -217,14 +217,11 @@ namespace SkalProj_Datastrukturer_Minne
 
                     Stack<char> charStack = new Stack<char>();
 
-                    //Console.WriteLine("Stack Behavior:");
-
-                   
-                        switch (nav)
-                        {
-                            case '+':
+                    switch (nav)
+                    {
+                        case '+':
                             if (!string.IsNullOrEmpty(input.Substring(1)))
-                                {
+                            {
                                 foreach (char c in input.Substring(1))
                                 {
                                     charStack.Push(c);
@@ -237,7 +234,7 @@ namespace SkalProj_Datastrukturer_Minne
                                 Console.Write(charStack.Pop());
                             }
                             break;
-                            case '-':
+                        case '-':
                             if (!string.IsNullOrEmpty(input.Substring(1)))
                             {
                                 foreach (char c in input.Substring(1))
@@ -246,7 +243,7 @@ namespace SkalProj_Datastrukturer_Minne
                                 }
                             }
                             if (charStack.Count > 0)
-                                {
+                            {
                                 foreach (char c in input)
                                 {
                                     if (charStack.Count > 0)
@@ -255,38 +252,102 @@ namespace SkalProj_Datastrukturer_Minne
                                         Console.WriteLine($"Popped '{poppedChar}' from the stack.");
                                     }
                                 }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Stack is empty. Cannot pop.");
-                                }
-                                break;
-                            case '*':
-                                isExamineStackAlive = false;
-                                break;
-                            default:
-                                Console.WriteLine($"Use '+' to push or '-' to pop.");
-                                break;
-                        }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Stack is empty. Cannot pop.");
+                            }
+                            break;
+                        case '*':
+                            isExamineStackAlive = false;
+                            break;
+                        default:
+                            Console.WriteLine($"Use '+' to push or '-' to pop.");
+                            break;
+                    }
                 }
             }
 
-            Console.WriteLine(); // Print a newline for formatting
+            Console.WriteLine(); 
         }
-    //1. Why is it not so smart to use a stack in this case?
-    //Stack works based on FILO(First In Last Out).
-    //In a real life situation like ICA queue it is not good to deal with the person who joined last before the one who joined first.
-    //So it is not appropriate to use a stack here.
-    static void CheckParanthesis()
+        //1. Why is it not so smart to use a stack in this case?
+        //Stack works based on FILO(First In Last Out).
+        //In a real life situation like ICA queue it is not good to deal with the person who joined last before the one who joined first.
+        //So it is not appropriate to use a stack here.
+        static void CheckParanthesis()
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+            //Used stack to keep track of each opening and closing parenthesis. When one opening is found it is pushed to stack and if its closing is not found the string is not well formed.
 
+            bool isExamineParanthesisAlive = true;
+            while (isExamineParanthesisAlive)
+            {
+                Console.Write("\n *. Return to main menu ");
+                Console.Write("\n1.Check paranthesis is correct ");
+
+                char input = ' '; //Creates the character input to be used with the switch-case below.
+                try
+                {
+                    input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
+                }
+                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+                switch (input)
+                {
+                    case '1':
+                        Console.WriteLine("\nEnter string like (()) or ([)):");
+
+                        string paramInput = Console.ReadLine();
+                        Stack<char> stack = new Stack<char>();
+                        if (!string.IsNullOrEmpty(paramInput))
+                        {
+                            foreach (char c in paramInput)
+                            {
+                                if (c == '(' || c == '{' || c == '[')
+                                {
+                                    stack.Push(c);
+                                }
+                                else if (c == ')' || c == '}' || c == ']')
+                                {
+                                    if (stack.Count == 0 || !IsMatchingPair(stack.Pop(), c))
+                                    {
+                                        Console.WriteLine("The string is not well-formed.");
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("The string is well-formed.");
+
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case '*':
+                        isExamineParanthesisAlive = false;
+                        break;
+                    default:
+                        Console.WriteLine("Enter string to check if parenthesis is correct.");
+                        break;
+
+                }
+
+                }
         }
-
+        static bool IsMatchingPair(char opening, char closing)
+        {
+            return (opening == '(' && closing == ')') ||
+                   (opening == '{' && closing == '}') ||
+                   (opening == '[' && closing == ']');
+        }
     }
-}
+    }
+
 
