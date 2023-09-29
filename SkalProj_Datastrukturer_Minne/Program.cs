@@ -198,9 +198,86 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
-        }
+            bool isExamineStackAlive = true;
+            while (isExamineStackAlive)
+            {
+                Console.WriteLine("\n* Return to main menu");
+                Console.Write("Enter a string with + to push to stack and - to pop from stack: ");
+            string input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input) )
+                {
+                    Console.WriteLine("* Return to main menu");
+                    Console.Write("Enter a string with + to push to stack and - to pop from stack: ");
 
-        static void CheckParanthesis()
+                }
+                else
+                {
+                    char nav = input[0];
+
+
+                    Stack<char> charStack = new Stack<char>();
+
+                    //Console.WriteLine("Stack Behavior:");
+
+                   
+                        switch (nav)
+                        {
+                            case '+':
+                            if (!string.IsNullOrEmpty(input.Substring(1)))
+                                {
+                                foreach (char c in input.Substring(1))
+                                {
+                                    charStack.Push(c);
+                                    Console.WriteLine($"Pushed '{c}' to the stack.");
+                                }
+                            }
+                            Console.Write("Reversed string: ");
+                            while (charStack.Count > 0)
+                            {
+                                Console.Write(charStack.Pop());
+                            }
+                            break;
+                            case '-':
+                            if (!string.IsNullOrEmpty(input.Substring(1)))
+                            {
+                                foreach (char c in input.Substring(1))
+                                {
+                                    charStack.Push(c);
+                                }
+                            }
+                            if (charStack.Count > 0)
+                                {
+                                foreach (char c in input)
+                                {
+                                    if (charStack.Count > 0)
+                                    {
+                                        char poppedChar = charStack.Pop();
+                                        Console.WriteLine($"Popped '{poppedChar}' from the stack.");
+                                    }
+                                }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Stack is empty. Cannot pop.");
+                                }
+                                break;
+                            case '*':
+                                isExamineStackAlive = false;
+                                break;
+                            default:
+                                Console.WriteLine($"Use '+' to push or '-' to pop.");
+                                break;
+                        }
+                }
+            }
+
+            Console.WriteLine(); // Print a newline for formatting
+        }
+    //1. Why is it not so smart to use a stack in this case?
+    //Stack works based on FILO(First In Last Out).
+    //In a real life situation like ICA queue it is not good to deal with the person who joined last before the one who joined first.
+    //So it is not appropriate to use a stack here.
+    static void CheckParanthesis()
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
