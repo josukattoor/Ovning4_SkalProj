@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
 namespace SkalProj_Datastrukturer_Minne
@@ -58,6 +59,51 @@ namespace SkalProj_Datastrukturer_Minne
                 }
             }
         }
+        /*
+         * Questions:
+1. How do the stack and the heap work? Please explain with an example or a sketch of it
+basic function
+        Stack is used when we want to store value types or refrence types.
+        On the other hand heap is used when we want to store reference types. 
+        */
+        public void StackExample()
+        {
+            int x = 10; // Local variable 'x' is allocated on the stack
+            int y = 5;  // Local variable 'y' is also allocated on the stack
+
+            int result = x + y; // 'result' is a temporary variable allocated on the stack
+        }
+
+
+        /*'
+         * when the function is called variables are added to stack and then removed when function exists. Since it is stack no need to explicitly manage the memory.
+        
+        */
+        class MyClass
+        {
+
+        }
+        public void HeapExample()
+        {
+        // Creating an object on the heap using 'new'
+        MyClass myObject = new MyClass(); 
+
+        // 'myObject' is a reference to the object, and it's allocated on the stack
+        // The actual object data is stored on the heap
+
+        // Explicitly releasing memory (not always required in C# due to garbage collection)
+        // 'myObject' will be removed from the stack, and the object on the heap is marked for cleanup
+        myObject = null;
+        }
+        /*
+        2. What are Value Types and Reference Types and what differentiates them?
+        Value types are stored directly on the memory in stack. Reference types are stored with a reference to actual data on the heap.
+        3. The following methods (see image below) generate different responses. The first returns 3, the
+        others return 4, why?
+        In the code in first function, x is assigned 3 first and x is assigned to y. Then value of y is changed to 4. But function returns value of x ie, 3.
+        In the second function x and y are instances of MyInt. Here since it is reference type both refer to same boject and when value of y.MyValue is assigned 4 it chnages the value of x as well. So function returns 4.
+         
+         */
 
         /// <summary>
         /// Examines the datastructure List
@@ -138,7 +184,7 @@ namespace SkalProj_Datastrukturer_Minne
             // Create a new Queue 
             Queue<string> icaQueue = new Queue<string>();
 
-            Console.WriteLine("ICA opens, and the checkout queue is empty.");
+            Console.WriteLine("ICA Queue, checkout queue is empty.");
 
             while (isExamineQueueAlive)
             {
@@ -318,12 +364,12 @@ namespace SkalProj_Datastrukturer_Minne
                                 {
                                     if (stack.Count == 0 || !IsMatchingPair(stack.Pop(), c))
                                     {
-                                        Console.WriteLine("The string is not well-formed.");
+                                        Console.WriteLine("The string is correct.");
                                         break;
                                     }
                                     else
                                     {
-                                        Console.WriteLine("The string is well-formed.");
+                                        Console.WriteLine("The string is incorrect.");
 
                                     }
                                 }
